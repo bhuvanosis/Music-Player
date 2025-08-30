@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="design.css">
+    <script src="https://kit.fontawesome.com/ceade23147.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container">
+        <div class="music-player">
+            <nav>
+                <div class="circle">
+                    <i class="fa-solid fa-angle-left"></i>
+                </div>
+                <div class="circle">
+                   <i class="fa-solid fa-bars"></i>
+                </div>
+            </nav>
+            <img src="assets/converted-vtv.png" class="song-img">
+            <h1> MANNIPAAYA</h1>
+            <br>
+            <p> AR RAHMAN MUSICAL</p>
+            <audio  id="song">
+                <source src="assets/Vinnaithaandi_Varuvaayaa_-_Mannipaaya_Tamil_Lyric___A.R._Rahman___STR(256k).mp3" type="audio/mpeg"> 
+            </audio>
+            <input type="range" value ="0" id="musics">
+            <div class="controls">
+                <div><i class="fa-solid fa-backward"></i></div>
+                <div onclick="playPause()"><i class="fa-solid fa-play" id="ctrl"></i></div>
+                <div><i class="fa-solid fa-forward"></i></div>
+            </div>
+
+        </div>
+    </div>
+    <script>
+        let musics = document.getElementById("musics");
+        let song = document.getElementById("song");
+        let ctrl = document.getElementById("ctrl");
+
+        song.onloadedmetadata=function(){
+            musics.max=song.duration;
+            musics.value=song.currentTime;
+
+        }
+        function playPause(){
+            if(ctrl.classList.contains("fa-pause")){
+                song.pause();
+                ctrl.classList.remove("fa-pause");
+                ctrl.classList.add("fa-play");
+            }
+            else{
+                song.play();
+                ctrl.classList.add("fa-pause");
+                ctrl.classList.remove("fa-play");
+            }
+        }
+        if(song.play()){
+            setInterval(()=>{
+                progress.value = song.currentTime;
+            },500);
+        }
+
+        musics.onchange=function(){
+            song.play();
+            song.currentTime=musics.value;
+            ctrl.classList.add("fa-pause");
+                ctrl.classList.remove("fa-play");
+
+        }
+
+    </script>
+</body>
+    </html>
